@@ -1,0 +1,3 @@
+[submodule "dpla_local_subjects"]
+	path = dpla_local_subjects
+	url = https://github.com/mrmiguez/dpla_local_subjects

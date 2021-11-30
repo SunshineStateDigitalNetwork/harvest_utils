@@ -6,6 +6,7 @@ from os.path import exists
 
 PRETTY_PRINT = 'True'
 
+
 def write_json_ld(docs):
     """
     Simple writing function.
@@ -129,7 +130,6 @@ if __name__ == '__main__':
     docs =[]
     recs = InternetArchive(collection)
     for rec in recs:
-        #print(rec)
         
         sourceResource = {}
         try:
@@ -148,6 +148,8 @@ if __name__ == '__main__':
             pass
         try:
             if rec.date:
+                if isinstance(rec.date, list):
+                    rec.date = rec.date[0]
                 d = dateparser.parse(rec.date, languages=['en']).date().isoformat()
                 sourceResource['date'] = {"begin": d, "end": d, "displayDate": d}
         except KeyError:
@@ -181,10 +183,6 @@ if __name__ == '__main__':
                "preview": 'https://archive.org/services/img/{}'.format(rec.identifier),
                "provider": {'name': 'Sunshine State Digital Network',
                                     '@id': 'UNDETERMINED'}}
-        
-        
-        #print(json.dumps(doc, indent=2))
-        
         
         docs.append(doc)
     write_json_ld(docs)
